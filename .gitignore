@@ -1,0 +1,33 @@
+# Secrets
+.env
+cred/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Data
+data/*.db
+data/*.db-shm
+data/*.db-wal
+
+# Runtime logs
+logs/
+
+# Claude session (machine-specific permissions, not project config)
+.claude/
+
+# One-off / scratch scripts
+create_sheet_and_reply.py
+finish_sheet_and_email.py
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
