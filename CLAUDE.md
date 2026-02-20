@@ -63,5 +63,8 @@ Run with: `~/life/.venv/bin/python3 ~/life/scripts/<script>.py [--debug]`
   Flags: --days-ahead N
 - `scripts/email_triage.py`  — Unread Gmail threads → structured JSON for Claude to action
   Flags: --limit N, --query "gmail search string"
+- `scripts/send_email.py`    — Send or reply to email; body from --body, --body-file, --html-file, or stdin
+  Flags: --to addr [addr...], --subject "...", --thread-id ID (for replies), --debug
+  Output: JSON with message_id, to, subject, thread_id
 
 Logs: `~/life/logs/<scriptname>.log` (rotating, 2MB × 5 backups)
