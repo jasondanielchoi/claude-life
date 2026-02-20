@@ -133,16 +133,6 @@ class GoogleServiceFactory:
         return self._build("tasks", "v1")
 
     @property
-    def keep(self) -> Any:
-        """Google Keep API v1 service object. Requires Google Workspace account."""
-        return self._build("keep", "v1")
-
-    @property
     def meet(self) -> Any:
         """Google Meet REST API v2 service object."""
         return self._build("meet", "v2")
-
-    @property
-    def drive_labels(self) -> Any:
-        """Drive Labels API v2 service object."""
-        return self._build("drivelabels", "v2")

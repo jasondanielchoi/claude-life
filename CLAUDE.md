@@ -28,14 +28,14 @@ Scope tools (venv, .nvmrc) per subdomain.
 - sqlite — local DB (`/Users/jasonchoi/life/data/life.db`)
 - brave-search — web search
 - github — code management
-- Token: `~/cred/google_token.json` (auto-refreshes, 11 scopes)
+- Token: `~/cred/google_token.json` (auto-refreshes, 10 scopes)
 - Auth helper: `~/life/google_auth.py` — `get_credentials(scopes)`
 - Re-auth script: `~/life/reauth.py` — use when scopes change
 
 ## Google Integration Library (`~/life/lib/`)
 
 ### Factory
-- `lib/google_factory.py` — `GoogleServiceFactory`: single credential, lazy-loads all 11 services
+- `lib/google_factory.py` — `GoogleServiceFactory`: single credential, lazy-loads all 9 services
 
 ### Original clients
 - `lib/gmail_client.py`    — `GmailClient`: search, get_thread, send_message, create_draft, label/archive/trash
@@ -48,14 +48,12 @@ Scope tools (venv, .nvmrc) per subdomain.
 - `lib/docs_client.py`         — `DocsClient`: get_document, create_document, append_text, replace_text, batch_update
 - `lib/slides_client.py`       — `SlidesClient`: get_presentation, create_presentation, get_text_content, add_slide
 - `lib/tasks_client.py`        — `TasksClient`: list_task_lists, get_tasks, create_task, complete_task, update_task
-- `lib/keep_client.py`         — `KeepClient`: list_notes, create_note, get_note, delete_note ⚠️ Workspace only
 - `lib/meet_client.py`         — `MeetClient`: create_space, get_space, end_active_conference
-- `lib/drive_labels_client.py` — `DriveLabelsClient`: list_labels, get_label, apply_label, remove_label, get_file_labels
 
 ### Models
 - `lib/models.py` — All typed dataclasses:
   Original: EmailMessage, EmailThread, CalendarEvent, Contact, DriveFile
-  New: GoogleDoc, Presentation, Slide, Task, TaskList, KeepNote, MeetingSpace, DriveLabel, LabelField
+  New: GoogleDoc, Presentation, Slide, Task, TaskList, MeetingSpace
 - `lib/base.py`   — `BaseScript` ABC: rotating logs to ~/life/logs/, JSON stdout output
 
 ## Productivity Scripts (`~/life/scripts/`)
