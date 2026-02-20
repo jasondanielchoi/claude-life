@@ -153,3 +153,145 @@ class DriveFile:
     @property
     def size_kb(self) -> Optional[float]:
         return round(self.size_bytes / 1024, 1) if self.size_bytes is not None else None
+
+
+# ── Docs ──────────────────────────────────────────────────────────────────────
+
+@dataclass
+class GoogleDoc:
+    """A Google Docs document."""
+
+    doc_id: str
+    title: str
+    body_text: str          # plain text extracted from all paragraphs and tables
+    revision_id: str = ""
+    url: str = ""
+
+    @property
+    def word_count(self) -> int:
+        return len(self.body_text.split())
+
+
+# ── Slides ────────────────────────────────────────────────────────────────────
+
+@dataclass
+class Slide:
+    """A single slide within a Google Slides presentation."""
+
+    slide_id: str
+    index: int
+    text_content: str       # concatenated text from all shapes on this slide
+    notes: str = ""         # speaker notes
+
+
+@dataclass
+class Presentation:
+    """A Google Slides presentation."""
+
+    presentation_id: str
+    title: str
+    slides: list[Slide] = field(default_factory=list)
+    url: str = ""
+
+    @property
+    def slide_count(self) -> int:
+        return len(self.slides)
+
+    @property
+    def full_text(self) -> str:
+        """All slide text joined by slide separators."""
+        return "\n---\n".join(
+            f"[Slide {s.index + 1}] {s.text_content}" for s in self.slides
+        )
+
+
+# ── Tasks ─────────────────────────────────────────────────────────────────────
+
+@dataclass
+class Task:
+    """A single Google Task."""
+
+    task_id: str
+    title: str
+    status: str             # 'needsAction' | 'completed'
+    notes: str = ""
+    due: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+    parent_id: Optional[str] = None
+
+    @property
+    def is_done(self) -> bool:
+        return self.status == "completed"
+
+
+@dataclass
+class TaskList:
+    """A Google Tasks list (container for tasks)."""
+
+    list_id: str
+    title: str
+    updated: Optional[datetime] = None
+
+
+# ── Keep ──────────────────────────────────────────────────────────────────────
+
+@dataclass
+class KeepNote:
+    """A Google Keep note.
+
+    Note: Google Keep API is only available on Google Workspace accounts.
+    Personal Gmail accounts will receive a 403 error.
+    """
+
+    name: str               # resource name: "notes/abc123"
+    title: str
+    text_content: str
+    create_time: Optional[datetime] = None
+    update_time: Optional[datetime] = None
+    is_trashed: bool = False
+    is_pinned: bool = False
+    labels: list[str] = field(default_factory=list)
+
+    @property
+    def note_id(self) -> str:
+        """Short ID extracted from the resource name."""
+        return self.name.split("/")[-1] if "/" in self.name else self.name
+
+
+# ── Meet ──────────────────────────────────────────────────────────────────────
+
+@dataclass
+class MeetingSpace:
+    """A Google Meet meeting space (persistent room with a stable URI)."""
+
+    name: str               # resource name: "spaces/abc123"
+    meeting_uri: str        # e.g. https://meet.google.com/abc-defg-hij
+    meeting_code: str       # e.g. "abc-defg-hij"
+
+    @property
+    def space_id(self) -> str:
+        return self.name.split("/")[-1] if "/" in self.name else self.name
+
+
+# ── Drive Labels ──────────────────────────────────────────────────────────────
+
+@dataclass
+class LabelField:
+    """A single field definition within a Drive Label."""
+
+    field_id: str
+    display_name: str
+    field_type: str         # 'TEXT' | 'INTEGER' | 'DATE' | 'SELECTION' | 'USER'
+
+
+@dataclass
+class DriveLabel:
+    """A Google Drive Label (metadata schema that can be applied to files)."""
+
+    label_id: str
+    name: str               # resource name: "labels/abc123"
+    title: str
+    description: str = ""
+    label_type: str = ""    # 'ADMIN' | 'SHARED'
+    fields: list[LabelField] = field(default_factory=list)
+    is_published: bool = False

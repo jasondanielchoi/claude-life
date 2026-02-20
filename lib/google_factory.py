@@ -36,13 +36,24 @@ from googleapiclient.discovery import build
 from google_auth import get_credentials  # ~/life/google_auth.py
 
 
-# Default scopes covering all five Google APIs used across Life Ops
+# All scopes across the full Life Ops Google integration suite
 ALL_SCOPES: list[str] = [
+    # ── Original five ─────────────────────────────────────────────────────────
     "https://www.googleapis.com/auth/calendar",
     "https://www.googleapis.com/auth/gmail.modify",
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive",
     "https://www.googleapis.com/auth/contacts.readonly",
+    # ── New — verified working on personal Gmail ──────────────────────────────
+    "https://www.googleapis.com/auth/documents",
+    "https://www.googleapis.com/auth/presentations",
+    "https://www.googleapis.com/auth/tasks",
+    "https://www.googleapis.com/auth/meetings.space.created",     # Meet (create/modify spaces made by this app)
+    "https://www.googleapis.com/auth/meetings.space.readonly",   # Meet (read any space)
+    # ── Excluded — requires service account or org-level approval ─────────────
+    # "https://www.googleapis.com/auth/drive.labels"
+    # ── Excluded — Workspace accounts only ────────────────────────────────────
+    # "https://www.googleapis.com/auth/keep"
 ]
 
 
@@ -105,3 +116,33 @@ class GoogleServiceFactory:
     def people(self) -> Any:
         """Google People API v1 service object (Contacts)."""
         return self._build("people", "v1")
+
+    @property
+    def docs(self) -> Any:
+        """Google Docs API v1 service object."""
+        return self._build("docs", "v1")
+
+    @property
+    def slides(self) -> Any:
+        """Google Slides API v1 service object."""
+        return self._build("slides", "v1")
+
+    @property
+    def tasks(self) -> Any:
+        """Google Tasks API v1 service object."""
+        return self._build("tasks", "v1")
+
+    @property
+    def keep(self) -> Any:
+        """Google Keep API v1 service object. Requires Google Workspace account."""
+        return self._build("keep", "v1")
+
+    @property
+    def meet(self) -> Any:
+        """Google Meet REST API v2 service object."""
+        return self._build("meet", "v2")
+
+    @property
+    def drive_labels(self) -> Any:
+        """Drive Labels API v2 service object."""
+        return self._build("drivelabels", "v2")
