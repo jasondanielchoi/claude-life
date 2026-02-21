@@ -22,10 +22,6 @@ logs/
 # Claude session (machine-specific permissions, not project config)
 .claude/
 
-# One-off / scratch scripts
-create_sheet_and_reply.py
-finish_sheet_and_email.py
-
 # Node
 node_modules/
 

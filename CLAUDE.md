@@ -66,5 +66,9 @@ Run with: `~/life/.venv/bin/python3 ~/life/scripts/<script>.py [--debug]`
 - `scripts/send_email.py`    — Send or reply to email; body from --body, --body-file, --html-file, or stdin
   Flags: --to addr [addr...], --subject "...", --thread-id ID (for replies), --debug
   Output: JSON with message_id, to, subject, thread_id
+- `scripts/db_to_sheet.py`  — Query any DB → Google Sheet (SQLite by default, SQLAlchemy DSN for others)
+  Flags: --query "SQL", --db PATH | --dsn DSN, --spreadsheet-id ID | --create TITLE,
+         --sheet NAME, --cell A1, --append, --no-header, --format-header, --share, --debug
+  Output: JSON with spreadsheet_id, sheet_url, rows_written, headers
 
 Logs: `~/life/logs/<scriptname>.log` (rotating, 2MB × 5 backups)

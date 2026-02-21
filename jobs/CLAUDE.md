@@ -10,23 +10,13 @@ Land a high-quality remote job. Targeted, not spray-and-pray.
 - Must-haves:
 - Hard nos:
 
-## Resume Facts
-- Name: Jason Daniel Choi
-- Email: jasondanielchoi@gmail.com | Phone: 314.435.9101
-- LinkedIn: linkedin.com/in/jason-daniel-choi
-- Location: (fill in)
-- Clearance: Top Secret / SCI (SSBI Dec 2010)
-- Languages: English (native), Mandarin, Spanish (working)
-- Current: Senior Data Scientist & Full Stack Engineer, Constituent Connection (Mar 2022–Present, remote)
-- Experience: 5+ yrs data engineering, large-scale pipelines, ETL, backend dev
-- Stack: Python (Django, Pandas, Dask, NumPy, scikit-learn, PyTorch), PostgreSQL, AWS (EC2/S3/Lambda/Textract), Docker, React/TypeScript, SQL, Linux
-- Notable: 100M+ row pipelines, FEC/Census data systems, ballot signature validation (AWS Textract), SMS/MMS delivery at scale, built custom 128GB/32-thread local ML workstation
-- Education: MS Data Analytics & Statistics + MS CS (WashU), MAcc (UW-Madison), BA Economics/Finance (WashU)
+## Profile
+- Stored in `life.db` → `profile` table (id=1) — query with `SELECT * FROM profile`
+- No PII in this file; cv_path and cv_updated are in the DB row
 
 ## CV & Cover Letter Source
-- Path: `/Users/jasonchoi/Documents/CVS/`
-- Current CV: `Wharton/Jason_Choi_CV_18FEB2026.docx`
-- Note: legacy folder structure — reorganize as needed
+- Path: `~/Documents/CVS/` (local only, not in repo)
+- Current CV: see `profile.cv_path` in DB
 
 ## Job Boards to Scrape
 - Remote OK, We Work Remotely, LinkedIn, Wellfound (AngelList)
